@@ -4,19 +4,7 @@
       "GO_BUILD_FLAGS": "-ldflags '-s -w'"
     }
   },
-  "build3s": [
-    {
-      "src": "api/*.go",
-      "use": "@vercel/go"
-    },
-    {
-      "src": "build_static.bash",
-      "use": "@vercel/node",
-      "config": {
-        "distDir": "staticfiles_build"
-      }
-    }
-  ],
+
   "routes": [
     {
       "src": "/",
