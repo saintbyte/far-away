@@ -1,13 +1,21 @@
 package api
 
 import (
-	"fmt"
+	"github.com/flosch/pongo2/v6"
 	"net/http"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
-	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "Index")
-	fmt.Fprintf(w, "<br />")
+	var tplExample = pongo2.Must(pongo2.FromFile("templates/index.html"))
+	err := tplExample.ExecuteWriter(
+		pongo2.Context{
+			"query":       r.FormValue("query"),
+			"title":       "Home",
+			"description": "Write your history here",
+		},
+		w,
+	)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
