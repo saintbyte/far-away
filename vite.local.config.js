@@ -1,5 +1,6 @@
-/* Vercel build config */
+/* Build to local public dir */
 export default {
+
     publicDir: 'assets',
     root: 'frontend/',
     build: {
