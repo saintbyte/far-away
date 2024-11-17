@@ -3,7 +3,7 @@ export default {
     publicDir: 'assets',
     root: 'frontend/',
     build: {
-        outDir: 'public',
+        outDir: '../dist',
         file: 'main.js',
         format: 'iife',
         name: 'MyBundle'
