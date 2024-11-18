@@ -25,5 +25,8 @@ func main() {
 
 	mux.HandleFunc("/{page:[a-z]+}", handler.Page)
 
-	log.Fatal(http.ListenAndServe(":"+utils.GetPort(), utils.LogRequest(mux)))
+	err = http.ListenAndServe(":"+utils.GetPort(), utils.LogRequest(mux))
+	if err != nil {
+		slog.Error("ListenAndServe problem:", err)
+	}
 }
