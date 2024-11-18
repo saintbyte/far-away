@@ -2,6 +2,7 @@ package api
 
 import (
 	"fmt"
+	"github.com/saintbyte/far-away/pkg/db"
 	"net/http"
 	"os"
 	"runtime"
@@ -9,6 +10,10 @@ import (
 )
 
 func Page(w http.ResponseWriter, r *http.Request) {
+	err := db.ConnectPG()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 	w.Header().Set("Content-Type", "text/html")
 	w.WriteHeader(http.StatusOK)
 	for _, e := range os.Environ() {
