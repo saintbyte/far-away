@@ -4,7 +4,6 @@ import (
 	"github.com/joho/godotenv"
 	handler "github.com/saintbyte/far-away/api"
 	"github.com/saintbyte/far-away/pkg/utils"
-	"log"
 	"log/slog"
 	"net/http"
 	"runtime"
