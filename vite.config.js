@@ -12,6 +12,7 @@ export default {
                 terser() // Use terser plugin
             ],
             output: {
+                inlineDynamicImports : true,
                 entryFileNames: `js/[name].js`,
                 chunkFileNames: `assets/[name].js`,
                 assetFileNames: `assets/[name].[ext]`
