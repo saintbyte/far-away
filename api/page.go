@@ -1,12 +1,10 @@
 package api
 
 import (
-	"fmt"
+	"github.com/flosch/pongo2/v6"
 	"github.com/saintbyte/far-away/pkg/db"
+	"github.com/saintbyte/far-away/pkg/templates"
 	"net/http"
-	"os"
-	"runtime"
-	"strings"
 )
 
 func Page(w http.ResponseWriter, r *http.Request) {
@@ -14,17 +12,16 @@ func Page(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
-	w.Header().Set("Content-Type", "text/html")
-	w.WriteHeader(http.StatusOK)
-	for _, e := range os.Environ() {
-		pair := strings.SplitN(e, "=", 2)
-		fmt.Fprintf(w, pair[0])
-		fmt.Fprintf(w, "=")
-		fmt.Fprintf(w, pair[1])
-		fmt.Fprintf(w, "<br />")
+	var tplExample = pongo2.Must(pongo2.FromString(templates.PageTemplate))
+	err = tplExample.ExecuteWriter(
+		pongo2.Context{
+			"query":       r.FormValue("query"),
+			"title":       "Home",
+			"description": "Write your history here",
+		},
+		w,
+	)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
-	fmt.Fprintf(w, "GOMAXPROCS")
-	fmt.Fprintf(w, "=")
-	fmt.Fprintf(w, "%v", runtime.NumCPU())
-	fmt.Fprintf(w, "<br />")
 }
