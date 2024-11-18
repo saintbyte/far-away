@@ -22,6 +22,8 @@ func main() {
 
 	mux.Handle("/i/", http.StripPrefix("/i/", http.FileServer(http.Dir("./public/i"))))
 	mux.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./public/favicon"))))
+	mux.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("./public/js"))))
+	mux.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("./public/assets"))))
 
 	mux.HandleFunc("/{page}", handler.Page)
 	mux.HandleFunc("/", handler.Index)
