@@ -18,12 +18,13 @@ func main() {
 	}
 
 	mux := http.NewServeMux()
-	mux.Handle("/", http.FileServer(http.Dir("./public")))
 	mux.HandleFunc("/api/healthcheck", handler.Healthcheck)
 
-	mux.HandleFunc("/", handler.Index)
+	mux.Handle("/i/", http.StripPrefix("/i/", http.FileServer(http.Dir("./public/i"))))
+	mux.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./public/favicon"))))
 
-	mux.HandleFunc("/{page:[a-z]+}", handler.Page)
+	mux.HandleFunc("/{page}", handler.Page)
+	mux.HandleFunc("/", handler.Index)
 
 	err = http.ListenAndServe(":"+utils.GetPort(), utils.LogRequest(mux))
 	if err != nil {
