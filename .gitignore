@@ -50,3 +50,4 @@ dist-ssr
 *.sw?
 *.kate-swp
 public/*
+*.tmp.txt
