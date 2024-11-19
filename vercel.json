@@ -6,6 +6,7 @@
   },
 
   "routes": [
+
     {
       "src": "/",
       "dest": "/api/index",
@@ -15,6 +16,7 @@
         "Access-Control-Allow-Headers": "Content-Type"
       }
     },
+    { "handle": "filesystem" },
     {
       "src": "/(.*)",
       "dest": "/api/page?page=$1",
