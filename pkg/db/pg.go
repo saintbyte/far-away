@@ -19,6 +19,7 @@ func GetPGUrl() string {
 }
 
 func ConnectPG() error {
+	slog.Error("GetPGUrl:", GetPGUrl())
 	dsn, err := postgresURItoDSN.UriToDSN(GetPGUrl())
 	if err != nil {
 		slog.Error("Database url error:", err)

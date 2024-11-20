@@ -6,19 +6,20 @@ import (
 	"github.com/saintbyte/far-away/pkg/utils"
 	"log/slog"
 	"net/http"
-	"runtime"
 )
 
 func main() {
 	// ENV
 	err := godotenv.Load()
-	runtime.GOMAXPROCS(100)
 	if err != nil {
 		slog.Error("Error loading .env file")
 	}
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/api/healthcheck", handler.Healthcheck)
+	mux.HandleFunc("/api/setup", handler.Setup)
+	mux.HandleFunc("/api/page", handler.Page)
+	mux.HandleFunc("/api/abuse", handler.Abuse)
 
 	mux.Handle("/i/", http.StripPrefix("/i/", http.FileServer(http.Dir("./public/i"))))
 	mux.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./public/favicon"))))
