@@ -29,5 +29,5 @@ func Setup(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "text/html")
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "If you seem if setuo is OK")
+	fmt.Fprintf(w, "If you seem if setup is OK")
 }

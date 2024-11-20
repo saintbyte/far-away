@@ -11,7 +11,7 @@ import (
 var Database *gorm.DB
 
 func GetPGUrl() string {
-	value, ok := os.LookupEnv("DATABASE_URL")
+	value, ok := os.LookupEnv("POSTGRES_URL")
 	if ok {
 		return value
 	}
