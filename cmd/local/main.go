@@ -20,6 +20,7 @@ func main() {
 	mux.HandleFunc("/api/setup", handler.Setup)
 	mux.HandleFunc("/api/page", handler.Page)
 	mux.HandleFunc("/api/abuse", handler.Abuse)
+	mux.HandleFunc("/api/save", handler.Save)
 
 	mux.Handle("/i/", http.StripPrefix("/i/", http.FileServer(http.Dir("./public/i"))))
 	mux.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./public/favicon"))))

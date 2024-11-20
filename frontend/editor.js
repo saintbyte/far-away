@@ -5,7 +5,34 @@ import './style.css'
 import Quill from 'quill';
 import i18next from 'i18next';
 
-function init() {
+var editor;
+
+function save(event) {
+    const titleEl = document.querySelector('#title')
+    const authorEl = document.querySelector('#author')
+    console.log(titleEl.value)
+    console.log(authorEl.value)
+    console.log(editor.getHtml())
+    fetch("/api/save",
+        {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(
+                {
+                    title: titleEl.value,
+                    author: authorEl.value,
+                    html: editor.getHtml()
+                }
+            )
+        })
+        .then(function(res){ console.log(res) })
+        .catch(function(res){ console.log(res) })
+}
+
+function preInit() {
     i18next.init({
         lng: 'en', // if you're using a language detector, do not define the lng option
         debug: true,
@@ -30,6 +57,13 @@ function init() {
         }
     });
 }
+function postInit() {
+    Quill.prototype.getHtml = function () {
+        return this.container.firstChild.innerHTML;
+    };
+    editor = setupQuill(document.querySelector('#editor'));
+    document.querySelector('#publish_button').addEventListener("click", save);
+}
 
 function setupQuill(element) {
     const quill = new Quill(
@@ -43,7 +77,9 @@ function setupQuill(element) {
     return quill
 }
 
-init()
+// APP
+preInit()
+
 document.querySelector('#app').innerHTML = `
 <div class="article-header">
         <div class="article-header-title">
@@ -57,8 +93,8 @@ document.querySelector('#app').innerHTML = `
 </div> 
 <div id="editor"></div>
 <div class="article-buttons">
-   <button type="button">${i18next.t("Publish")}</button>
+   <button type="button" id="publish_button">${i18next.t("Publish")}</button>
 </div>
 `
+postInit();
 
-const editor = setupQuill(document.querySelector('#editor'));
