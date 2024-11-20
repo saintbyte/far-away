@@ -12,7 +12,7 @@ const (
 
 type PageDBModel struct {
 	ID           uuid.UUID `gorm:"type:uuid;default:gen_random_uuid()"`
-	Slug         string    `gorm:"type:varchar(255)"`
+	Slug         string    `gorm:"type:varchar(255);unique_index;not null"`
 	Title        string    `gorm:"type:varchar(255)"`
 	Author       string    `gorm:"type:varchar(255)"`
 	Text         string    `gorm:"type:text"`
