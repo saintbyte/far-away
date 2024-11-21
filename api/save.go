@@ -26,13 +26,13 @@ func getSlug(Title string) string {
 	pageSlug := slug.Make(Title)
 
 	dbRecord := models.PageDBModel{}
-	result := db.Database.Model(&models.PageDBModel{}).Where("slug = ?", pageSlug).First(&dbRecord)
+	result := db.Database.Model(&models.PageDBModel{}).Where("slug = ?", pageSlug).Take(&dbRecord)
 	if result.RowsAffected == 0 {
 		return pageSlug
 	}
 	t := time.Now()
 	pageSlug = pageSlug + "-" + t.Format("2006-01-02")
-	result = db.Database.Model(&models.PageDBModel{}).Where("slug = ?", pageSlug).First(&dbRecord)
+	result = db.Database.Model(&models.PageDBModel{}).Where("slug = ?", pageSlug).Take(&dbRecord)
 	if result.RowsAffected == 0 {
 		return pageSlug
 	}
@@ -43,7 +43,7 @@ func getSlug(Title string) string {
 		i = i + 1
 		newSlug = pageSlug + "-" + strconv.Itoa(i)
 		slog.Info(newSlug)
-		result = db.Database.Model(&models.PageDBModel{}).Where("slug = ?", newSlug).First(&dbRecord)
+		result = db.Database.Model(&models.PageDBModel{}).Where("slug = ?", newSlug).Take(&dbRecord)
 		if result.RowsAffected == 0 {
 			return newSlug
 		}
