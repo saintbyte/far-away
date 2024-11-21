@@ -27,6 +27,7 @@ func Setup(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+	//db.Database.Raw("CREATE UNIQUE INDEX IF NOT EXISTS slug_index_uniq ON page_db_models(slug);")
 	w.Header().Set("Content-Type", "text/html")
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "If you seem if setup is OK")
