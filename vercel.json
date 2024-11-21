@@ -18,7 +18,7 @@
     },
 
     {
-      "src": "/(.*)",
+      "src": "/([a-z0-9\\-\\+]+)",
       "dest": "/api/page?page=$1",
       "methods": ["GET", "OPTIONS"],
       "headers": {
@@ -26,7 +26,9 @@
         "Access-Control-Allow-Headers": "Content-Type"
       }
     },
-    { "handle": "filesystem" }
+    {
+      "handle": "filesystem"
+    }
   ],
 
 
