@@ -71,7 +71,17 @@ const (
     <link rel="stylesheet" crossorigin href="/assets/index.css">
 </head>
 <body>
-<div id="app"></div>
+<div id="app">
+<div class="article-header">
+        <div class="article-header-title">
+            <h1>{{ title }}</h1>
+        </div>
+        <div class="article-header-author">
+            <small>{{ author }}</small>
+        </div>
+</div> 
+<div id="editor">{{ text }}</div>
+</div>
 </body>
 </html>
 `
