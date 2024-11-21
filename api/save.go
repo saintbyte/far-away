@@ -31,10 +31,11 @@ func getSlug(Title string) string {
 	}
 	var i int
 	i = 0
-	var newSlug = pageSlug
+	var newSlug string
 	for {
 		i = i + 1
 		newSlug = pageSlug + "-" + strconv.Itoa(i)
+		slog.Info(newSlug)
 		result = db.Database.Model(&models.PageDBModel{}).Where("slug = ?", newSlug).First(&dbRecord)
 		if result.RowsAffected == 0 {
 			return newSlug
