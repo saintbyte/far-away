@@ -18,15 +18,15 @@ func getSlug(Title string) string {
 	slug.Lowercase = true
 	pageSlug := slug.Make(Title)
 
-	result := map[string]interface{}{}
-	db.Database.Model(&models.PageDBModel{}).First(&result, "slug = ?", pageSlug)
-	if result == nil {
+	dbRecord := models.PageDBModel{}
+	result := db.Database.Model(&models.PageDBModel{}).Where("slug = ?", pageSlug).First(&dbRecord)
+	if result.RowsAffected == 0 {
 		return pageSlug
 	}
 	t := time.Now()
 	pageSlug = pageSlug + "-" + t.Format("2006-01-02")
-	db.Database.Model(&models.PageDBModel{}).First(&result, "slug = ?", pageSlug)
-	if result == nil {
+	result = db.Database.Model(&models.PageDBModel{}).Where("slug = ?", pageSlug).First(&dbRecord)
+	if result.RowsAffected == 0 {
 		return pageSlug
 	}
 	var i = 0
@@ -34,8 +34,8 @@ func getSlug(Title string) string {
 	for {
 		i = i + 1
 		newSlug = pageSlug + "-" + strconv.Itoa(i)
-		db.Database.Model(&models.PageDBModel{}).First(&result, "slug = ?", pageSlug)
-		if result == nil {
+		result = db.Database.Model(&models.PageDBModel{}).Where("slug = ?", newSlug).First(&dbRecord)
+		if result.RowsAffected == 0 {
 			return newSlug
 		}
 	}
