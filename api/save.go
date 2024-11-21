@@ -1,6 +1,7 @@
 package api
 
 import (
+	"crypto/rand"
 	"encoding/json"
 	"fmt"
 	"github.com/gosimple/slug"
