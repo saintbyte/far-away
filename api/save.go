@@ -9,9 +9,41 @@ import (
 	"github.com/sym01/htmlsanitizer"
 	"log/slog"
 	"net/http"
+	"strconv"
+	"time"
 )
 
+func getSlug(Title string) string {
+	// Получить не назанятый адрес
+	slug.Lowercase = true
+	pageSlug := slug.Make(Title)
+
+	result := map[string]interface{}{}
+	db.Database.Model(&models.PageDBModel{}).First(&result, "slug = ?", pageSlug)
+	if result == nil {
+		return pageSlug
+	}
+	t := time.Now()
+	pageSlug = pageSlug + "-" + t.Format("2006-01-02")
+	db.Database.Model(&models.PageDBModel{}).First(&result, "slug = ?", pageSlug)
+	if result == nil {
+		return pageSlug
+	}
+	var i = 0
+	var newSlug = pageSlug
+	for {
+		i = i + 1
+		newSlug = pageSlug + "-" + strconv.Itoa(i)
+		db.Database.Model(&models.PageDBModel{}).First(&result, "slug = ?", pageSlug)
+		if result == nil {
+			return newSlug
+		}
+	}
+	return pageSlug
+}
+
 func Save(w http.ResponseWriter, r *http.Request) {
+	// Сохранить текст в базу
 	err := db.ConnectPG()
 	if err != nil {
 		slog.Error("Pg connect error:", err)
@@ -36,14 +68,16 @@ func Save(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Html empty", http.StatusBadRequest)
 		return
 	}
-	slug.Lowercase = true
-	pageSlug := slug.Make(requestData.Title)
-
+	pageSlug := getSlug(requestData.Title)
 	s := htmlsanitizer.NewHTMLSanitizer()
 	s.GlobalAttr = []string{"class"}
 
 	sanitizedHTML, err := s.SanitizeString(requestData.HTML)
-
+	if err != nil {
+		slog.Error("SanitizeString err: ", err.Error)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 	page := models.PageDBModel{
 		Slug:         pageSlug,
 		Title:        requestData.Title,
