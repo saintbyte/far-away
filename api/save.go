@@ -29,7 +29,8 @@ func getSlug(Title string) string {
 	if result.RowsAffected == 0 {
 		return pageSlug
 	}
-	var i = 0
+	var i int
+	i = 0
 	var newSlug = pageSlug
 	for {
 		i = i + 1
@@ -37,6 +38,9 @@ func getSlug(Title string) string {
 		result = db.Database.Model(&models.PageDBModel{}).Where("slug = ?", newSlug).First(&dbRecord)
 		if result.RowsAffected == 0 {
 			return newSlug
+		}
+		if i > 300 {
+			return "-"
 		}
 	}
 	return pageSlug
