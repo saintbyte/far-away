@@ -14,6 +14,5 @@
   "dependencies": {
     "i18next": "^23.16.5",
     "quill": "^2.0.2",
-    "@rollup/plugin-terser": "^0.1.0"
   }
 }

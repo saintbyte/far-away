@@ -1,5 +1,4 @@
 /* Build to local public dir */
-import {terser} from "rollup-plugin-terser";
 
 export default {
 
@@ -9,9 +8,6 @@ export default {
         outDir: '../public',
         minify: 'terser',
         rollupOptions: {
-            plugins: [
-                terser() // Use terser plugin
-            ],
             output: {
                 inlineDynamicImports : true,
                 entryFileNames: `js/[name].js`,

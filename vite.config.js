@@ -1,16 +1,12 @@
 /* Vercel build config */
-import { terser } from 'rollup-plugin-terser'
 
 export default {
     publicDir: 'assets',
     root: 'frontend/',
     build: {
-        minify: 'terser',
+        minify: 'esbuild',
         outDir: '../dist',
         rollupOptions: {
-            plugins: [
-                terser() // Use terser plugin
-            ],
             output: {
                 inlineDynamicImports : true,
                 entryFileNames: `js/[name].js`,
