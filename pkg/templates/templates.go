@@ -74,13 +74,13 @@ const (
 <div id="app">
 <div class="article-header">
         <div class="article-header-title">
-            <h1>{{ title }}</h1>
+            <h1>{{ title }}</h1>111111111
         </div>
         <div class="article-header-author">
-            <small>{{ author }}</small>
+            <small>{{ author }}</small>111111
         </div>
 </div> 
-<div id="editor">{{ text }}</div>
+<div id="editor">{{ text }}111</div>
 </div>
 </body>
 </html>
