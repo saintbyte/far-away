@@ -94,5 +94,5 @@ func Save(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "text/json")
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "{}")
+	fmt.Fprintf(w, "{\"slug\":\""+page.Slug+"\"}")
 }
