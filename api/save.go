@@ -13,6 +13,12 @@ import (
 	"time"
 )
 
+func randToken() string {
+	b := make([]byte, 8)
+	rand.Read(b)
+	return fmt.Sprintf("%x", b)
+}
+
 func getSlug(Title string) string {
 	// Получить не назанятый адрес
 	slug.Lowercase = true
@@ -88,7 +94,7 @@ func Save(w http.ResponseWriter, r *http.Request) {
 		Title:        requestData.Title,
 		Author:       requestData.Author,
 		Text:         sanitizedHTML,
-		AccessSecret: "11111",
+		AccessSecret: randToken(),
 	}
 
 	result := db.Database.Create(&page)
