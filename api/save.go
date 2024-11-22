@@ -85,7 +85,7 @@ func Save(w http.ResponseWriter, r *http.Request) {
 	pageSlug := getSlug(requestData.Title)
 	s := htmlsanitizer.NewHTMLSanitizer()
 	s.GlobalAttr = []string{"class"}
-
+	secret := randToken()
 	sanitizedHTML, err := s.SanitizeString(requestData.HTML)
 	if err != nil {
 		slog.Error("SanitizeString err: ", err.Error)
@@ -97,7 +97,7 @@ func Save(w http.ResponseWriter, r *http.Request) {
 		Title:        requestData.Title,
 		Author:       requestData.Author,
 		Text:         sanitizedHTML,
-		AccessSecret: randToken(),
+		AccessSecret: secret,
 	}
 
 	result := db.Database.Create(&page)
@@ -108,5 +108,16 @@ func Save(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "text/json")
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "{\"slug\":\""+page.Slug+"\"}")
+	resultData := &models.PageCreateResponse{
+		Slug:   page.Slug,
+		Secret: secret,
+	}
+	b, err := json.Marshal(resultData)
+	if err != nil {
+		slog.Error("to json error: ", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	fmt.Println(string(b))
+	fmt.Fprintf(w, string(b))
 }
