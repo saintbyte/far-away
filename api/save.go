@@ -118,6 +118,5 @@ func Save(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	fmt.Println(string(b))
 	fmt.Fprintf(w, string(b))
 }

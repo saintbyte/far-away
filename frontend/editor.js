@@ -28,7 +28,12 @@ function save(event) {
                 }
             )
         })
-        .then(function(res){ console.log(res) })
+        .then(function(res){
+            console.log(res)
+            const receivedData = res.json()
+            localStorage.setItem(receivedData["slug"], receivedData["secret"]);
+            window.location.href="/"+receivedData["slug"]
+        })
         .catch(function(res){ console.log(res) })
 }
 
