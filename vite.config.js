@@ -7,6 +7,9 @@ export default {
         minify: 'esbuild',
         outDir: '../dist',
         rollupOptions: {
+            input: {
+                app: './main.html',
+            },
             output: {
                 inlineDynamicImports : true,
                 entryFileNames: `static/js/[name].js`,
