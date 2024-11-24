@@ -9,9 +9,9 @@ export default {
         rollupOptions: {
             output: {
                 inlineDynamicImports : true,
-                entryFileNames: `js/[name].js`,
-                chunkFileNames: `assets/[name].js`,
-                assetFileNames: `assets/[name].[ext]`
+                entryFileNames: `static/js/[name].js`,
+                chunkFileNames: `static/assets/[name].js`,
+                assetFileNames: `static/assets/[name].[ext]`
             }
         },
     }
