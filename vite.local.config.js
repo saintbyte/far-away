@@ -8,9 +8,6 @@ export default {
         outDir: '../public',
         minify: 'esbuild',
         rollupOptions: {
-            input: {
-                app: 'main.html',
-            },
             output: {
                 inlineDynamicImports: true,
                 entryFileNames: `static/js/[name].js`,
@@ -20,7 +17,6 @@ export default {
         },
     },
     server: {
-        open: '/main.html',
         proxy: {
             // string shorthand: http://localhost:5173/api -> http://localhost:8080/api
             '/api': 'http://localhost:8080',
