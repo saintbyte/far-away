@@ -27,7 +27,18 @@ type PageCreateRequest struct {
 	HTML   string `json:"html"`
 }
 
+type PageUpdateRequest struct {
+	Title  string `json:"title"`
+	Author string `json:"author"`
+	HTML   string `json:"html"`
+	Slug   string `json:"author"`
+	Secret string `json:"secret"`
+}
+
 type PageCreateResponse struct {
 	Slug   string `json:"url"`
 	Secret string `json:"secret"`
+}
+type PageUpdateResponse struct {
+	Slug string `json:"url"`
 }

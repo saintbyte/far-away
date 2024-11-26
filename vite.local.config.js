@@ -6,10 +6,10 @@ export default {
     root: 'frontend/',
     build: {
         outDir: '../public',
-        minify: 'terser',
+        minify: 'esbuild',
         rollupOptions: {
             input: {
-                app: './main.html',
+                app: 'main.html',
             },
             output: {
                 inlineDynamicImports: true,
@@ -20,6 +20,7 @@ export default {
         },
     },
     server: {
+        open: '/main.html',
         proxy: {
             // string shorthand: http://localhost:5173/api -> http://localhost:8080/api
             '/api': 'http://localhost:8080',

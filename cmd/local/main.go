@@ -18,6 +18,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/api/healthcheck", handler.Healthcheck)
 	mux.HandleFunc("/api/setup", handler.Setup)
+	mux.HandleFunc("/api/update", handler.Update)
 	mux.HandleFunc("/api/page", handler.Page)
 	mux.HandleFunc("/api/abuse", handler.Abuse)
 	mux.HandleFunc("/api/save", handler.Save)

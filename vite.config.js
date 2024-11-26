@@ -8,7 +8,7 @@ export default {
         outDir: '../dist',
         rollupOptions: {
             input: {
-                app: './main.html',
+                app: 'main',
             },
             output: {
                 inlineDynamicImports : true,
