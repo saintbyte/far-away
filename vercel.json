@@ -16,9 +16,20 @@
         "Access-Control-Allow-Headers": "Content-Type"
       }
     },
-
     {
-      "src": "/([a-z0-9\\-\\+]+)",
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/i/(.*)",
+      "dest": "/i/$1"
+    },
+    {
+      "src": "/favicon/(.*)",
+      "dest": "/favicon/$1"
+    },
+    {
+      "src": "/(.*)",
       "dest": "/api/page?page=$1",
       "methods": ["GET", "OPTIONS"],
       "headers": {

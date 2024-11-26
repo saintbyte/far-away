@@ -8,6 +8,9 @@ export default {
         outDir: '../public',
         minify: 'esbuild',
         rollupOptions: {
+            input: {
+                main: resolve(__dirname, 'index.html'),
+            },
             output: {
                 inlineDynamicImports: true,
                 entryFileNames: `static/js/[name].js`,
