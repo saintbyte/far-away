@@ -67,8 +67,8 @@ const (
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Far away" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
-    <script type="module" crossorigin src="/js/index.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index.css">
+    <script type="module" crossorigin src="/static/js/index.js"></script>
+    <link rel="stylesheet" crossorigin href="/static/assets/index.css">
 </head>
 <body>
 <div id="app">
