@@ -33,7 +33,7 @@ function save(event) {
             const receivedData = await res.json()
             console.log(receivedData)
             localStorage.setItem(receivedData["slug"], receivedData["secret"]);
-            //window.location.href="/"+receivedData["slug"]
+            window.location.href="/"+receivedData["slug"]
         })
         .catch(function(res){ console.log(res) })
 }
