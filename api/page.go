@@ -7,7 +7,6 @@ import (
 	"github.com/saintbyte/far-away/pkg/db"
 	"github.com/saintbyte/far-away/pkg/models"
 	"github.com/saintbyte/far-away/pkg/templates"
-	"html"
 	"net/http"
 )
 
@@ -53,8 +52,8 @@ func Page(w http.ResponseWriter, r *http.Request) {
 
 	err = tplExample.ExecuteWriter(
 		pongo2.Context{
-			"title":       html.EscapeString(dbRecord.Title),
-			"author":      html.EscapeString(dbRecord.Author),
+			"title":       dbRecord.Title,
+			"author":      dbRecord.Author,
 			"text":        dbRecord.Text,
 			"description": getDescription(dbRecord.Text),
 		},

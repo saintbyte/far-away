@@ -73,13 +73,13 @@ const (
 <div id="app">
 <div class="article-header">
         <div class="article-header-title">
-            <h1>{{ title }}</h1>111111111
+            {{ title }}
         </div>
         <div class="article-header-author">
-            <small>{{ author }}</small>111111
+            <small>{{ author }}</small>
         </div>
 </div> 
-<div id="editor">{{ text }}111</div>
+<div id="editor">{% autoescape off %}{{ text }}{% endautoescape %}</div>
 </div>
 </body>
 </html>
