@@ -11,6 +11,27 @@ import (
 	"net/http"
 )
 
+func getDescription(text string) string {
+	// Получить кусок с описание для страницы
+	if text == "" {
+		return ""
+	}
+	p := bluemonday.StripTagsPolicy()
+	fullText := p.Sanitize(
+		text,
+	)
+	if fullText == "" {
+		return ""
+	}
+	var description string
+	if len(fullText) <= templates.MaxDescriptionLength {
+		description = fullText
+	} else {
+		description = fullText[:templates.MaxDescriptionLength-1]
+	}
+	return description
+}
+
 func Page(w http.ResponseWriter, r *http.Request) {
 	err := db.ConnectPG()
 	if err != nil {
@@ -28,16 +49,14 @@ func Page(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var tplExample = pongo2.Must(pongo2.FromString(templates.PageTemplate))
-	p := bluemonday.StripTagsPolicy()
-	fullText := p.Sanitize(
-		dbRecord.Text,
-	)
+	// --------------------------------------------------
+
 	err = tplExample.ExecuteWriter(
 		pongo2.Context{
 			"title":       html.EscapeString(dbRecord.Title),
 			"author":      html.EscapeString(dbRecord.Author),
 			"text":        dbRecord.Text,
-			"description": fullText[:512],
+			"description": getDescription(dbRecord.Text),
 		},
 		w,
 	)
