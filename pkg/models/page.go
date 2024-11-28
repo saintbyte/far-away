@@ -36,9 +36,9 @@ type PageUpdateRequest struct {
 }
 
 type PageCreateResponse struct {
-	Slug   string `json:"url"`
+	Slug   string `json:"slug"`
 	Secret string `json:"secret"`
 }
 type PageUpdateResponse struct {
-	Slug string `json:"url"`
+	Slug string `json:"slug"`
 }

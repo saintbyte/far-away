@@ -14,5 +14,11 @@ export default {
                 assetFileNames: `static/assets/[name].[ext]`
             }
         },
+    },
+    server: {
+        proxy: {
+            // string shorthand: http://localhost:5173/api -> http://localhost:8080/api
+            '/api': 'http://localhost:8080',
+        }
     }
 }

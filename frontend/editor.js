@@ -28,11 +28,12 @@ function save(event) {
                 }
             )
         })
-        .then(function(res){
+        .then(async function (res) {
             console.log(res)
-            const receivedData = res.json()
+            const receivedData = await res.json()
+            console.log(receivedData)
             localStorage.setItem(receivedData["slug"], receivedData["secret"]);
-            window.location.href="/"+receivedData["slug"]
+            //window.location.href="/"+receivedData["slug"]
         })
         .catch(function(res){ console.log(res) })
 }
