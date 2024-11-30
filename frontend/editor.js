@@ -3,6 +3,7 @@ import 'quill/dist/quill.bubble.css'
 import './style.css'
 
 import Quill from 'quill';
+import hljs from 'highlight.js';
 import i18next from 'i18next';
 
 var editor;
@@ -72,11 +73,25 @@ function postInit() {
 }
 
 function setupQuill(element) {
+    const toolbarOptions = [
+        [{ 'header': 1 }, { 'header': 2 }],
+        ['bold', 'italic', 'underline', 'strike'],
+        ['blockquote'],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
+        ['link', 'image'],
+        ['code-block'],
+        ['clean']
+    ];
     const quill = new Quill(
         element,
         {
+            modules: {
+                syntax: { hljs },             // Include syntax module
+                toolbar: toolbarOptions,  // Include button in toolbar
+            },
             debug: 'info',
             theme: 'bubble',
+            toolbar: toolbarOptions,
             placeholder: i18next.t("TextPlaceholder"),
         }
     );
